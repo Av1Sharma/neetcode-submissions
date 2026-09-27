@@ -1,0 +1,31 @@
+class Solution:
+    def asteroidCollision(self, asteroids: List[int]) -> List[int]:
+
+        stack = []
+
+        for asteroid in asteroids:
+
+            alive = True
+
+            while stack and stack[-1] > 0 and asteroid < 0:
+
+                if abs(stack[-1]) < abs(asteroid):
+                    # Top asteroid dies
+                    stack.pop()
+                    # Current asteroid is still alive, so keep checking
+
+                elif abs(stack[-1]) == abs(asteroid):
+                    # Both die
+                    stack.pop()
+                    alive = False
+                    break
+
+                else:
+                    # Current asteroid dies
+                    alive = False
+                    break
+
+            if alive:
+                stack.append(asteroid)
+
+        return stack
